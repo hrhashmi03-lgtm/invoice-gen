@@ -13,7 +13,6 @@ export interface InvoiceData {
   invoiceNumber: string;
   date: string;
   items: InvoiceItem[];
-  discount: number;
 }
 
 export function useInvoice() {
@@ -23,7 +22,6 @@ export function useInvoice() {
     invoiceNumber: `INV-${Date.now()}`,
     date: new Date().toISOString().split("T")[0],
     items: [{ id: "1", name: "", price: 0, quantity: 1 }],
-    discount: 0,
   });
 
   const updateCustomerName = (name: string) => {
@@ -73,9 +71,6 @@ export function useInvoice() {
     }));
   };
 
-  const updateDiscount = (discount: number) => {
-    setInvoice((prev) => ({ ...prev, discount }));
-  };
 
   const clearAll = () => {
     setInvoice({
@@ -84,7 +79,6 @@ export function useInvoice() {
       invoiceNumber: `INV-${Date.now()}`,
       date: new Date().toISOString().split("T")[0],
       items: [{ id: "1", name: "", price: 0, quantity: 1 }],
-      discount: 0,
     });
   };
 
@@ -93,9 +87,7 @@ export function useInvoice() {
   };
 
   const calculateTotal = () => {
-    const subtotal = calculateSubtotal();
-    const discountAmount = (subtotal * invoice.discount) / 100;
-    return subtotal - discountAmount;
+    return calculateSubtotal();
   };
 
   return {
@@ -107,7 +99,6 @@ export function useInvoice() {
     updateItem,
     addItem,
     removeItem,
-    updateDiscount,
     clearAll,
     calculateSubtotal,
     calculateTotal,

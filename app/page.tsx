@@ -37,9 +37,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Mobile Preview Toggle */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Mobile Toggle Button */}
         <div className="lg:hidden mb-6">
           <button
             onClick={() => setShowPreview(!showPreview)}
@@ -49,22 +49,25 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Main Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Form Section */}
+        {/* Main Layout - Single column on mobile, side by side on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Form Section - Left side */}
           <div
             className={`${
               showPreview ? "hidden" : "block"
-            } lg:block space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2`}
+            } lg:block lg:col-span-1 space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2`}
           >
-            <InvoiceForm invoice={invoice} />
+            <div className="bg-white dark:bg-blue-900 rounded-lg shadow-lg p-6 border-2 border-blue-200 dark:border-blue-700">
+              <h1 className="text-2xl font-bold text-blue-900 dark:text-white mb-6">Create Invoice</h1>
+              <InvoiceForm invoice={invoice} />
+            </div>
           </div>
 
-          {/* Preview Section */}
+          {/* Preview Section - Right side (takes 2 columns) */}
           <div
             className={`${
               showPreview ? "block" : "hidden"
-            } lg:block space-y-4`}
+            } lg:block lg:col-span-2`}
           >
             <div className="sticky top-8 space-y-4">
               <div
@@ -75,12 +78,12 @@ export default function Home() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 bg-white dark:bg-blue-900 rounded-lg shadow-lg p-4 border-2 border-blue-200 dark:border-blue-700">
                 <button
                   onClick={() => setShowPreview(false)}
-                  className="hidden lg:block px-4 py-2 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-medium rounded-lg transition-colors text-center"
+                  className="hidden lg:block px-4 py-2 bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-600 text-white font-medium rounded-lg transition-colors text-center"
                 >
-                  Edit Invoice
+                  ← Back to Edit
                 </button>
                 <button
                   onClick={handleGeneratePDF}
